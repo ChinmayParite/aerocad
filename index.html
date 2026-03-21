@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AEROCAD Showdown 2026 | National Level CAD Modelling Tournament</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* Theme Colors */
+            --bg-dark: #030814;
+            --bg-nav: rgba(2, 6, 16, 0.85);
+            --bg-card: rgba(10, 20, 40, 0.5);
+            --bg-card-hover: rgba(15, 30, 60, 0.6);
+            --primary-cyan: #00d4ff;
+            --primary-cyan-dim: rgba(0, 212, 255, 0.2);
+            --secondary-orange: #ff6b00;
+            --accent-glow: 0 0 20px rgba(0, 212, 255, 0.4);
+            --accent-glow-orange: 0 0 20px rgba(255, 107, 0, 0.4);
+            --text-light: #e0f2fe;
+            --text-muted: #94a3b8;
+            --border-color: rgba(0, 212, 255, 0.2);
+
+            /* Typography */
+            --font-head: 'Orbitron', sans-serif;
+            --font-body: 'Rajdhani', sans-serif;
+        }
+
+        /* 0. LOADING SCREEN */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        #loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid var(--primary-cyan-dim);
+            border-top: 5px solid var(--primary-cyan);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loader-text {
+            font-family: var(--font-head);
+            font-size: 1.2rem;
+            color: var(--primary-cyan);
+            letter-spacing: 2px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(0, 212, 255, 0.05), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(255, 107, 0, 0.05), transparent 25%);
+            background-attachment: fixed;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Utility Classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .heading {
+            font-family: var(--font-head);
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-cyan);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        }
+
+        .heading span {
+            color: var(--secondary-orange);
+            text-shadow: 0 0 10px rgba(255, 107, 0, 0.3);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            font-family: var(--font-head);
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--bg-dark);
+            background: var(--primary-cyan);
+            border: 2px solid var(--primary-cyan);
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: var(--accent-glow);
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: var(--primary-cyan);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary-cyan);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-cyan);
+            color: var(--bg-dark);
+        }
+
+        .btn-orange {
+            background: var(--secondary-orange);
+            border-color: var(--secondary-orange);
+            box-shadow: var(--accent-glow-orange);
+            color: #fff;
+        }
+
+        .btn-orange:hover {
+            background: transparent;
+            color: var(--secondary-orange);
+            box-shadow: 0 0 30px rgba(255, 107, 0, 0.6);
+        }
+
+        .btn-full {
+            width: 100%;
+            text-align: center;
+            font-size: 1.1rem;
+            padding: 15px;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 1. FIXED NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            transition: padding 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: var(--font-head);
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--primary-cyan);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-link {
+            font-family: var(--font-head);
+            font-size: 0.9rem;
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-cyan);
+            transition: width 0.3s ease;
+            box-shadow: var(--accent-glow);
+        }
+
+        .nav-link:hover {
+            color: var(--primary-cyan);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--primary-cyan);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* 2. HERO SECTION */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding-top: 80px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(rgba(3, 8, 20, 0.7), rgba(3, 8, 20, 0.9)),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.05"><path d="M0 0h100v100H0z" fill="none"/><path d="M0 50h100M50 0v100" stroke="%2300d4ff" stroke-width="1"/></svg>') center/ 50px 50px;
+            z-index: -1;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            z-index: 1;
+        }
+
+        .hero-hosted {
+            font-size: 1.2rem;
+            color: var(--secondary-orange);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero-title {
+            font-family: var(--font-head);
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            color: #fff;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+            animation: zoomIn 1s ease;
+        }
+
+        .hero-title span {
+            color: transparent;
+            -webkit-text-stroke: 2px var(--primary-cyan);
+        }
+
+        .hero-tagline {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease 0.3s backwards;
+        }
+
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease 0.6s backwards;
+        }
+
+        .badge {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-family: var(--font-head);
+            font-size: 0.9rem;
+            color: var(--primary-cyan);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-ctas {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            animation: fadeInUp 1s ease 0.9s backwards;
+        }
+
+        /* 3. STATS BAR */
+        .stats-bar {
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.05), transparent);
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            padding: 40px 0;
+        }
+
+        .stats-grid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-item {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .stat-number {
+            font-family: var(--font-head);
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-cyan);
+            line-height: 1;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* 4. TOURNAMENT ROUNDS */
+        .rounds-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .round-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .round-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.15);
+            background: var(--bg-card-hover);
+        }
+
+        .round-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-cyan);
+            box-shadow: var(--accent-glow);
+        }
+
+        .round-card:nth-child(even)::before {
+            background: var(--secondary-orange);
+            box-shadow: var(--accent-glow-orange);
+        }
+
+        .round-num {
+            font-family: var(--font-head);
+            font-size: 1rem;
+            color: var(--primary-cyan);
+            margin-bottom: 5px;
+            display: block;
+            letter-spacing: 2px;
+        }
+
+        .round-card:nth-child(even) .round-num {
+            color: var(--secondary-orange);
+        }
+
+        .round-title {
+            font-family: var(--font-head);
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .round-meta {
+            font-size: 0.9rem;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .round-desc {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        /* 5. PRIZE POOL */
+        .prize-section {
+            background: linear-gradient(180deg, transparent, rgba(10, 20, 40, 0.8), transparent);
+        }
+
+        .prize-banner {
+            text-align: center;
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid var(--primary-cyan);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 50px;
+            box-shadow: inset 0 0 20px rgba(0, 212, 255, 0.1);
+        }
+
+        .prize-banner h3 {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            color: #fff;
+        }
+
+        .prize-banner span {
+            color: var(--primary-cyan);
+            font-size: 2.5rem;
+            text-shadow: var(--accent-glow);
+        }
+
+        .prize-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .prize-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .prize-card.gold {
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+            transform: scale(1.05);
+            z-index: 2;
+        }
+
+        .prize-card.silver {
+            border-color: #c0c0c0;
+        }
+
+        .prize-card.bronze {
+            border-color: #cd7f32;
+        }
+
+        .prize-card.speed {
+            border-color: var(--secondary-orange);
+            box-shadow: 0 0 20px rgba(255, 107, 0, 0.2);
+        }
+
+        .prize-pos {
+            font-family: var(--font-head);
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .gold .prize-pos {
+            color: #ffd700;
+        }
+
+        .silver .prize-pos {
+            color: #c0c0c0;
+        }
+
+        .bronze .prize-pos {
+            color: #cd7f32;
+        }
+
+        .speed .prize-pos {
+            color: var(--secondary-orange);
+        }
+
+        .prize-amount {
+            font-family: var(--font-head);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .prize-disclaimer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* 6. REGISTRATION & 7. PAYMENT */
+        .reg-container {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 20px 50px rgba(255, 255, 255, 0.2);
+        }
+
+        .reg-info h3 {
+            font-family: var(--font-head);
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .info-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .info-list li {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .info-list li::before {
+            content: '▹';
+            color: var(--primary-cyan);
+            font-weight: bold;
+        }
+
+        .info-list strong {
+            color: #fff;
+        }
+
+        .software-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .criteria-bar {
+            margin-top: 15px;
+        }
+
+        .criteria-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        .progress {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-cyan);
+            box-shadow: var(--accent-glow);
+        }
+
+        /* Form Styles */
+        .form-section-title {
+            font-family: var(--font-head);
+            font-size: 1.2rem;
+            color: var(--primary-cyan);
+            margin: 30px 0 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed rgba(0, 212, 255, 0.3);
+            text-transform: uppercase;
+        }
+
+        .form-section-title:first-child {
+            margin-top: 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #e0f2fe;
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-cyan);
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+            background: rgba(0, 212, 255, 0.02);
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="%2300d4ff" viewBox="0 0 16 16"><path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+        }
+
+        select.form-control option {
+            background: var(--bg-dark);
+            color: #fff;
+        }
+
+        .member-block {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .member-title {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Payment Gateway Box */
+        .payment-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--secondary-orange);
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 20px rgba(255, 107, 0, 0.1);
+        }
+
+        .payment-amount {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            color: var(--secondary-orange);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .upi-badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .upi-badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 15px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: #fff;
+        }
+
+        .upi-id {
+            text-align: center;
+            font-family: monospace;
+            font-size: 1.2rem;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            color: #fff;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+
+        .file-upload {
+            position: relative;
+            overflow: hidden;
+            display: block;
+        }
+
+        .file-upload input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-upload-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px dashed var(--primary-cyan);
+            border-radius: 6px;
+            text-align: center;
+            color: var(--primary-cyan);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload:hover .file-upload-btn {
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        /* 8. FOOTER */
+        .footer {
+            background: #02050a;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 60px 0 20px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .footer-logo span {
+            color: var(--primary-cyan);
+        }
+
+        .footer-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-cyan);
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 20px;
+        }
+
+        /* 9. SUCCESS MODAL */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--primary-cyan);
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .success-icon {
+            font-size: 5rem;
+            color: var(--primary-cyan);
+            margin-bottom: 20px;
+            text-shadow: var(--accent-glow);
+        }
+
+        .modal-title {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .modal-text {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 4rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                flex-direction: column;
+                padding: 20px 0;
+                gap: 15px;
+                border-bottom: 1px solid var(--border-color);
+                clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+                transition: clip-path 0.3s ease;
+            }
+
+            .nav-links.active {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                gap: 40px;
+            }
+
+            .prize-card.gold {
+                transform: scale(1);
+            }
+        }
+
+        /* Keyframes */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 0. LOADING SCREEN -->
+    <div id="loader">
+        <div class="spinner"></div>
+        <div class="loader-text">INITIALIZING AEROCAD...</div>
+    </div>
+
+    <!-- 1. FIXED NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo" style="gap:15px; align-items: center;"><img src="revised2-02.png"
+                    alt="MITAOE AERO Logo"
+                    style="height: 48px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 212, 255, 0.3);">
+                AERO<span>CAD</span></a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#rounds" class="nav-link">Rounds</a></li>
+                <li><a href="#prizes" class="nav-link">Prizes</a></li>
+                <li><a href="#register" class="btn btn-outline" style="padding: 8px 20px;">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 2. HERO SECTION -->
+    <header class="hero">
+        <div class="container hero-content">
+            <div class="hero-hosted">MITAERO Club | MIT Academy of Engineering</div>
+            <h1 class="hero-title">AEROCAD<br><span>Showdown</span> 2026</h1>
+            <p class="hero-tagline">National Level CAD Modelling & Assembly Tournament</p>
+
+            <div class="hero-badges">
+                <span class="badge">📅 2-Day Event</span>
+                <span class="badge">📍 MIT Pune</span>
+                <span class="badge">👥 4 Members/Team</span>
+                <span class="badge">🎟️ ₹200 Entry Fee</span>
+            </div>
+
+            <div class="hero-ctas">
+                <a href="#register" class="btn">Register Your Team</a>
+                <a href="#rounds" class="btn btn-outline">View Rounds</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 3. STATS BAR -->
+    <section class="stats-bar" id="about">
+        <div class="container">
+            <div class="stats-grid fade-in">
+                <div class="stat-item">
+                    <div class="stat-number">50</div>
+                    <div class="stat-label">Teams Capacity</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">Participants</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Rounds</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Software Tracks</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. TOURNAMENT ROUNDS -->
+    <section class="section" id="rounds">
+        <div class="container">
+            <h2 class="heading fade-in">Tournament <span>Format</span></h2>
+
+            <div class="rounds-grid">
+                <div class="round-card fade-in">
+                    <span class="round-num">ROUND 01</span>
+                    <h3 class="round-title">The Blueprint Sprint</h3>
+                    <div class="round-meta">Day 1 · Qualification</div>
+                    <p class="round-desc">All 4 members model individual parts simultaneously. Cumulative time is the
+                        primary metric. Only the top 50% fastest and accurate teams advance.</p>
+                </div>
+
+                <div class="round-card fade-in" style="transition-delay: 0.1s;">
+                    <span class="round-num">ROUND 02</span>
+                    <h3 class="round-title">The Assembly Nexus</h3>
+                    <div class="round-meta">Day 1 · Elimination</div>
+                    <p class="round-desc">Integrate independently modelled parts into a complex, clash-free 3D assembly.
+                        Precision meets speed—shortest completion time wins the bracket.</p>
+                </div>
+
+                <div class="round-card fade-in" style="transition-delay: 0.2s;">
+                    <span class="round-num">ROUND 03</span>
+                    <h3 class="round-title">The Mystery Co-Pilot</h3>
+                    <div class="round-meta">Day 2 · Advanced</div>
+                    <p class="round-desc">Teams split into pairs sharing one workstation! One controls the mouse, the
+                        other the keyboard. Flawless communication is required to mate components perfectly.</p>
+                </div>
+
+                <div class="round-card fade-in" style="transition-delay: 0.3s;">
+                    <span class="round-num">ROUND 04</span>
+                    <h3 class="round-title">The Grand Finale</h3>
+                    <div class="round-meta">Day 2 · Championship</div>
+                    <p class="round-desc">Live high-speed aerospace subsystem modelling. The top 3 teams are crowned
+                        based on the absolute lowest aggregate time and zero geometric errors.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. PRIZE POOL SECTION -->
+    <section class="section prize-section" id="prizes">
+        <div class="container">
+            <h2 class="heading fade-in">Prize <span>Pool</span></h2>
+
+            <div class="prize-banner fade-in">
+                <h3>Total Prize Pool</h3>
+                <span>₹10,000+</span>
+            </div>
+
+            <div class="prize-grid">
+                <div class="prize-card gold fade-in">
+                    <div class="prize-pos">1st Place</div>
+                    <div class="prize-amount">₹5,000</div>
+                    <p style="color:var(--text-muted); margin-top:10px;">Champions</p>
+                </div>
+
+                <div class="prize-card silver fade-in" style="transition-delay: 0.1s;">
+                    <div class="prize-pos">2nd Place</div>
+                    <div class="prize-amount">₹3,000</div>
+                    <p style="color:var(--text-muted); margin-top:10px;">Runners Up</p>
+                </div>
+
+                <div class="prize-card bronze fade-in" style="transition-delay: 0.2s;">
+                    <div class="prize-pos">3rd Place</div>
+                    <div class="prize-amount">₹1,500</div>
+                    <p style="color:var(--text-muted); margin-top:10px;">2nd Runners Up</p>
+                </div>
+
+                <div class="prize-card speed fade-in" style="transition-delay: 0.3s;">
+                    <div class="prize-pos">Speed Award</div>
+                    <div class="prize-amount">₹500</div>
+                    <p style="color:var(--text-muted); margin-top:10px;">Fastest Modellers</p>
+                </div>
+            </div>
+
+            <p class="prize-disclaimer fade-in">* Prize amounts are indicative — confirm final figures with organizers
+                on event day.</p>
+        </div>
+    </section>
+
+    <!-- 6. REGISTRATION SECTION & 7. PAYMENT GATEWAY -->
+    <section class="section" id="register">
+        <div class="container">
+            <h2 class="heading fade-in">Secure Your <span>Slot</span></h2>
+
+            <div class="reg-container fade-in">
+                <!-- Left Information -->
+                <div class="reg-info">
+                    <h3>Event Details</h3>
+                    <ul class="info-list">
+                        <li><strong>Hosted By:</strong> MITAERO Club</li>
+                        <li><strong>Category:</strong> Technical Design & Prototyping</li>
+                        <li><strong>Team Size:</strong> 4 Members (Compulsory)</li>
+                        <li><strong>Max Teams:</strong> 50 Slots Only</li>
+                        <li><strong>Entry Fee:</strong> ₹200 per team</li>
+                        <li><strong>Format:</strong> Knockout (4 Rounds)</li>
+                    </ul>
+
+                    <h3 style="font-size: 1.2rem; margin-top: 30px; border:none; margin-bottom:10px;">Supported Software
+                    </h3>
+                    <div class="software-pills">
+                        <span class="pill">SolidWorks</span>
+                        <span class="pill">CATIA</span>
+                        <span class="pill">Fusion 360</span>
+                    </div>
+
+                    <h3 style="font-size: 1.2rem; margin-top: 40px; border:none; margin-bottom:15px;">Judging Criteria
+                    </h3>
+                    <div class="criteria-bar">
+                        <div class="criteria-item"><span>Speed</span> <span>40%</span></div>
+                        <div class="progress">
+                            <div class="progress-fill" style="width: 40%;"></div>
+                        </div>
+
+                        <div class="criteria-item"><span>Accuracy</span> <span>35%</span></div>
+                        <div class="progress">
+                            <div class="progress-fill" style="width: 35%; background: var(--secondary-orange);"></div>
+                        </div>
+
+                        <div class="criteria-item"><span>Coordination</span> <span>25%</span></div>
+                        <div class="progress">
+                            <div class="progress-fill" style="width: 25%; background: #94a3b8;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Form -->
+                <div class="reg-form">
+                    <form id="registrationForm">
+                        <div class="form-section-title">Team Info</div>
+                        <div class="form-grid">
+                            <div class="form-group full">
+                                <label class="form-label">Team Name *</label>
+                                <input type="text" class="form-control" required placeholder="e.g. AeroDynamics">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">College/Institution *</label>
+                                <input type="text" class="form-control" required placeholder="Full college name">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">City *</label>
+                                <input type="text" class="form-control" required placeholder="e.g. Pune">
+                            </div>
+                            <div class="form-group full">
+                                <label class="form-label">Primary Software *</label>
+                                <select class="form-control" required>
+                                    <option value="">Select Software</option>
+                                    <option value="solidworks">SolidWorks</option>
+                                    <option value="catia">CATIA</option>
+                                    <option value="fusion360">Fusion 360</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Team Leader Gmail *</label>
+                                <input type="email" class="form-control" required
+                                    pattern="^[a-zA-Z0-9._%+\-]+@gmail\.com$" placeholder="e.g. leader@gmail.com"
+                                    oninvalid="this.setCustomValidity('Please enter a valid Gmail address (@gmail.com)')"
+                                    oninput="this.setCustomValidity('')">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Team Leader Phone *</label>
+                                <input type="tel" class="form-control" required pattern="[0-9]{10}" minlength="10"
+                                    maxlength="10"
+                                    oninvalid="this.setCustomValidity('Phone number must be exactly 10 digits')"
+                                    oninput="this.setCustomValidity('')" placeholder="10 digit number">
+                            </div>
+                        </div>
+
+
+                        <!-- 7. PAYMENT GATEWAY -->
+                        <div class="form-section-title" style="margin-top: 40px;">Payment Gateway</div>
+                        <div class="payment-box">
+                            <div class="payment-amount">₹200.00</div>
+                            <div
+                                style="text-align:center; color: var(--text-muted); margin-bottom: 15px; font-size:0.9rem;">
+                                Fixed team registration fee. Non-refundable.
+                            </div>
+                            <div style="text-align: center; margin-bottom: 20px;">
+                                <img src="scan_qr.jpeg" alt="UPI QR Code"
+                                    style="background: white; padding: 10px; border-radius: 8px; border: 2px solid var(--primary-cyan); max-width: 250px; width: 100%;">
+                            </div>
+                            <div class="upi-id" style="margin-bottom: 10px;">UPI ID: cparite8@oksbi</div>
+                            <div class="upi-badges" style="margin-bottom: 30px;">
+                                <span class="upi-badge"
+                                    style="background: var(--primary-cyan); color: var(--bg-dark); font-weight: bold;">UPI
+                                    Only</span>
+                            </div>
+
+                            <div class="form-grid">
+                                <div class="form-group full">
+                                    <label class="form-label">UTR / Transaction ID *</label>
+                                    <input type="text" class="form-control" required pattern="[0-9]{12}" minlength="12"
+                                        maxlength="12"
+                                        oninvalid="this.setCustomValidity('UTR must be exactly 12 digits')"
+                                        oninput="this.setCustomValidity('')"
+                                        placeholder="Enter exactly 12-digit UTR number">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-orange btn-full">COMPLETE REGISTRATION</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo"><img src="revised2-02.png" alt="MITAOE AERO Logo"
+                    style="height: 80px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 212, 255, 0.3);">
+                <br>AERO<span>CAD</span>
+            </div>
+            <p class="footer-subtitle">MITAERO Club | MIT Academy of Engineering, Pune</p>
+            <p class="footer-contact" style="margin-top: 10px; font-size: 0.95rem; color: var(--text-muted);">
+                <strong>Queries:</strong> +91 7888129094 - Chinmay Parite - President<br>
+                <strong>Email:</strong> <a href="mailto:aero.club2424@gmail.com"
+                    style="color: var(--primary-cyan); text-decoration: none;">aero.club2424@gmail.com</a>
+            </p>
+
+            <div class="footer-links">
+                <a href="#about">About Theme</a>
+                <a href="#rounds">Tournament Rules</a>
+                <a href="#prizes">Prize Distribution</a>
+                <a href="#">Contact Organizers</a>
+                <a href="#">Terms & Conditions</a>
+            </div>
+
+            <p class="copyright">© 2026 MITAERO Club. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- 9. SUCCESS MODAL -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-content">
+            <div class="success-icon">✓</div>
+            <h3 class="modal-title">Registration Submitted!</h3>
+            <p class="modal-text">Your team details and payment information have been successfully uploaded. Keep an eye
+                on the Team Leader's email for the confirmation and bracket placement.</p>
+            <button class="btn btn-full" onclick="closeModal()">BACK TO HOME</button>
+        </div>
+    </div>
+
+    <script>
+
+
+
+
+        // Form Submit to Google Sheets via GAS Web App URL
+        const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbz2TUEuYQW-HToX9Ogmg6LiThQeBKgIElRRfxV6DZWkkZH0w-D8e8cc81MJV4wE6TMS/exec'; // REPLACE WITH ACTUAL URL
+
+        const msModal = document.getElementById('successModal');
+        const regForm = document.getElementById('registrationForm');
+
+        regForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const submitBtn = regForm.querySelector('button[type="submit"]');
+            submitBtn.textContent = 'SUBMITTING...';
+            submitBtn.disabled = true;
+
+            const inputs = regForm.querySelectorAll('input, select');
+
+            const payload = {
+                teamName: inputs[0].value,
+                college: inputs[1].value,
+                city: inputs[2].value,
+                software: inputs[3].value,
+                leaderEmail: inputs[4].value,
+                leaderPhone: inputs[5].value,
+                utr: inputs[6].value
+            };
+
+            try {
+                // Post via fetch with text/plain to bypass CORS preflight
+                await fetch(GAS_WEB_APP_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+
+                msModal.classList.add('active');
+                regForm.reset();
+            } catch (error) {
+                alert('Submission failed. Please try again.');
+            } finally {
+                submitBtn.textContent = 'COMPLETE REGISTRATION';
+                submitBtn.disabled = false;
+            }
+        });
+
+        function closeModal() {
+            msModal.classList.remove('active');
+        }
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.style.padding = '10px 0';
+                nav.style.background = 'rgba(0,0,0,0.8)';
+            } else {
+                nav.style.padding = '15px 0';
+                nav.style.background = 'rgba(2, 6, 16, 0.85)';
+            }
+        });
+
+        // Intersection Observer for Fade-in Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Loading Screen (Wait for everything to load)
+        document.body.style.overflow = 'hidden'; // Lock scroll immediately
+
+        window.addEventListener('load', () => {
+            // Hide the loader as soon as all files, images, and fonts are perfectly loaded
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 200); // Tiny 200ms buffer for a smooth fade out
+        });
+    </script>
+</body>
+
+</html>
