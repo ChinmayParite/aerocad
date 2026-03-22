@@ -222,17 +222,43 @@
         }
 
         @keyframes simpleGlitch {
-            0% { transform: translate(0) }
-            20% { transform: translate(-2px, 2px) }
-            40% { transform: translate(-2px, -2px) }
-            60% { transform: translate(2px, 2px) }
-            80% { transform: translate(2px, -2px) }
-            100% { transform: translate(0) }
+            0% {
+                transform: translate(0)
+            }
+
+            20% {
+                transform: translate(-2px, 2px)
+            }
+
+            40% {
+                transform: translate(-2px, -2px)
+            }
+
+            60% {
+                transform: translate(2px, 2px)
+            }
+
+            80% {
+                transform: translate(2px, -2px)
+            }
+
+            100% {
+                transform: translate(0)
+            }
         }
-        
+
         @keyframes blink {
-            0%, 96%, 98% { opacity: 1; }
-            97%, 99% { opacity: 0; }
+
+            0%,
+            96%,
+            98% {
+                opacity: 1;
+            }
+
+            97%,
+            99% {
+                opacity: 0;
+            }
         }
 
         /* 1. FIXED NAVBAR */
@@ -1164,11 +1190,24 @@
                         Precision meets speed—shortest completion time wins the bracket.</p>
                 </div>
 
-                <div class="round-card fade-in" style="transition-delay: 0.2s; border-color: red; box-shadow: 0 0 15px rgba(255,0,0,0.5);">
-                    <span class="round-num" style="color: red;">ROUND 03</span>
-                    <h3 class="round-title wakanda-glitch" style="color: red;">[REDACTED]</h3>
-                    <div class="round-meta" style="background: rgba(255,0,0,0.2); color: #fff;">SYSTEM ERROR</div>
-                    <p class="round-desc wakanda-glitch">ENCRYPTED DATA // ACCESS DENIED... PREPARE FOR THE UNKNOWN. ONLY THE WORTHY SHALL SURVIVE THIS PHASE.</p>
+                <div class="round-card fade-in"
+                    style="transition-delay: 0.2s; border-color: var(--primary-cyan); box-shadow: 0 0 15px rgba(0,212,255,0.3);">
+                    <span class="round-num" style="color: var(--primary-cyan);">ROUND 03</span>
+                    <h3 class="round-title"
+                        style="color: #fff; animation: simpleGlitch 0.2s linear infinite, blink 3s infinite;">
+                        Co-ordination</h3>
+                    <div class="round-meta"
+                        style="background: rgba(0,212,255,0.1); color: var(--primary-cyan); animation: simpleGlitch 0.4s linear infinite;">
+                        Day 1 · Advanced</div>
+                    <p class="round-desc">
+                        <span class="wakanda-glitch" style="color: var(--text-muted); text-shadow: none;">Teams split
+                            into pairs sharing one workstation! One controls the mouse, the other the keyboard. </span>
+                        <strong
+                            style="color: var(--secondary-orange); font-size: 1.1rem; text-shadow: 0 0 10px var(--secondary-orange); animation: blink 1.5s infinite;">FLAWLESS
+                            COMMUNICATION</strong>
+                        <span class="wakanda-glitch" style="color: var(--text-muted); text-shadow: none;"> is required
+                            to mate components perfectly.</span>
+                    </p>
                 </div>
 
                 <div class="round-card fade-in" style="transition-delay: 0.3s;">
