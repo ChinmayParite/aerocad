@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AEROCAD Showdown 2026 | National Level CAD Modelling Tournament</title>
-    <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="aerocad_logo.jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -111,15 +110,18 @@
         ::-webkit-scrollbar {
             width: 12px;
         }
+
         ::-webkit-scrollbar-track {
             background: var(--bg-dark);
             border-left: 1px solid rgba(0, 212, 255, 0.1);
         }
+
         ::-webkit-scrollbar-thumb {
             background: linear-gradient(180deg, var(--primary-cyan), var(--secondary-orange));
             border-radius: 6px;
             border: 3px solid var(--bg-dark);
         }
+
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(0deg, var(--primary-cyan), var(--secondary-orange));
         }
@@ -409,7 +411,7 @@
         /* 1. FIXED NAVBAR */
         .navbar {
             position: fixed;
-            top: 0;
+            top: -5px;
             left: 0;
             width: 100%;
             background: rgba(0, 0, 0, 0.8);
@@ -528,7 +530,7 @@
         .back-to-events:hover svg {
             transform: translateX(-5px);
         }
-        
+
         @media (max-width: 768px) {
             .back-to-events {
                 top: 90px;
@@ -785,6 +787,7 @@
         }
 
         /* 5. PRIZE POOL */
+        /* 5. PRIZE POOL */
         .prize-section {
             background: linear-gradient(180deg, transparent, rgba(10, 20, 40, 0.8), transparent);
         }
@@ -797,6 +800,12 @@
             border-radius: 10px;
             margin-bottom: 50px;
             box-shadow: inset 0 0 20px rgba(0, 212, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .prize-banner:hover {
+            transform: translateY(-5px);
+            box-shadow: inset 0 0 30px rgba(0, 212, 255, 0.2), 0 10px 25px rgba(0, 212, 255, 0.3);
         }
 
         .prize-banner h3 {
@@ -824,6 +833,13 @@
             padding: 30px;
             text-align: center;
             transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .prize-card:hover {
+            transform: translateY(-10px);
+            background: var(--bg-card-hover);
+            z-index: 5;
         }
 
         .prize-card.gold {
@@ -833,12 +849,28 @@
             z-index: 2;
         }
 
+        .prize-card.gold:hover {
+            transform: scale(1.1) translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.4);
+            border-color: #ffe64d;
+        }
+
         .prize-card.silver {
             border-color: #c0c0c0;
         }
 
+        .prize-card.silver:hover {
+            box-shadow: 0 15px 30px rgba(192, 192, 192, 0.3);
+            border-color: #e6e6e6;
+        }
+
         .prize-card.bronze {
             border-color: #cd7f32;
+        }
+
+        .prize-card.bronze:hover {
+            box-shadow: 0 15px 30px rgba(205, 127, 50, 0.3);
+            border-color: #ffb366;
         }
 
         .prize-card.speed {
@@ -846,27 +878,49 @@
             box-shadow: 0 0 20px rgba(255, 107, 0, 0.2);
         }
 
+        .prize-card.speed:hover {
+            box-shadow: 0 15px 30px rgba(255, 107, 0, 0.5);
+            border-color: #ff8c33;
+        }
+
         .prize-pos {
             font-family: var(--font-head);
             font-size: 1.5rem;
             color: #fff;
             margin-bottom: 15px;
+            transition: text-shadow 0.3s ease;
         }
 
         .gold .prize-pos {
             color: #ffd700;
         }
 
+        .gold:hover .prize-pos {
+            text-shadow: 0 0 15px #ffd700;
+        }
+
         .silver .prize-pos {
             color: #c0c0c0;
+        }
+
+        .silver:hover .prize-pos {
+            text-shadow: 0 0 15px #c0c0c0;
         }
 
         .bronze .prize-pos {
             color: #cd7f32;
         }
 
+        .bronze:hover .prize-pos {
+            text-shadow: 0 0 15px #cd7f32;
+        }
+
         .speed .prize-pos {
             color: var(--secondary-orange);
+        }
+
+        .speed:hover .prize-pos {
+            text-shadow: 0 0 15px var(--secondary-orange);
         }
 
         .prize-amount {
@@ -1329,13 +1383,11 @@
 
 <body>
 
-    <!-- 0. LOADING SCREEN -->
     <div id="loader">
         <div class="spinner"></div>
         <div class="loader-text">INITIALIZING AEROCAD...</div>
     </div>
 
-    <!-- 1. FIXED NAVBAR -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="#" class="logo" style="gap:15px; align-items: center;"><img src="revised2-02.png"
@@ -1352,10 +1404,13 @@
         </div>
     </nav>
 
-    <!-- 2. HERO SECTION -->
     <header class="hero">
         <a href="https://www.gamesta.in/events" class="back-to-events">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
             BACK TO EVENTS
         </a>
         <div class="container hero-content">
@@ -1377,7 +1432,6 @@
         </div>
     </header>
 
-    <!-- 3. STATS BAR -->
     <section class="stats-bar" id="about">
         <div class="container">
             <div class="stats-grid fade-in">
@@ -1401,7 +1455,6 @@
         </div>
     </section>
 
-    <!-- 4. TOURNAMENT ROUNDS -->
     <section class="section" id="rounds">
         <div class="container">
             <h2 class="heading fade-in">Tournament <span>Format</span></h2>
@@ -1458,7 +1511,6 @@
         </div>
     </section>
 
-    <!-- 5. PRIZE POOL SECTION -->
     <section class="section prize-section" id="prizes">
         <div class="container">
             <h2 class="heading fade-in">Prize <span>Pool</span></h2>
@@ -1499,13 +1551,11 @@
         </div>
     </section>
 
-    <!-- 6. REGISTRATION SECTION & 7. PAYMENT GATEWAY -->
     <section class="section" id="register">
         <div class="container">
             <h2 class="heading fade-in">Secure Your <span>Slot</span></h2>
 
             <div class="reg-container fade-in">
-                <!-- Left Information -->
                 <div class="reg-info">
                     <h3>Event Details</h3>
                     <ul class="info-list">
@@ -1545,7 +1595,6 @@
                     </div>
                 </div>
 
-                <!-- Right Form -->
                 <div class="reg-form">
                     <form id="registrationForm">
                         <div class="form-section-title">Team Info</div>
@@ -1588,7 +1637,6 @@
                         </div>
 
 
-                        <!-- 7. PAYMENT GATEWAY -->
                         <div class="form-section-title" style="margin-top: 40px;">Payment Gateway</div>
                         <div class="payment-box">
                             <div class="payment-amount">₹200.00</div>
@@ -1627,7 +1675,6 @@
         </div>
     </section>
 
-    <!-- 8. FOOTER -->
     <footer class="footer">
         <div class="container">
             <div class="footer-logo"><img src="revised2-02.png" alt="MITAOE AERO Logo"
@@ -1683,6 +1730,29 @@
                     background: rgba(255, 87, 34, 0.1);
                     color: var(--secondary-orange);
                 }
+
+                .map-container {
+                    width: 100%;
+                    max-width: 800px;
+                    height: 250px;
+                    margin: 40px auto 30px;
+                    border-radius: 12px;
+                    overflow: hidden;
+                    border: 1px solid rgba(0, 212, 255, 0.2);
+                    box-shadow: 0 5px 20px rgba(0, 212, 255, 0.1);
+                }
+
+                .map-container iframe {
+                    width: 100%;
+                    height: 100%;
+                    border: 0;
+                    filter: invert(90%) hue-rotate(180deg) brightness(80%) contrast(1.2);
+                    transition: filter 0.3s ease;
+                }
+
+                .map-container:hover iframe {
+                    filter: invert(90%) hue-rotate(180deg) brightness(100%) contrast(1.3);
+                }
             </style>
 
             <div class="contact-grid">
@@ -1717,9 +1787,32 @@
                         <div style="color: var(--text-muted); font-size: 0.9rem;">+91 91720 23118</div>
                     </div>
                 </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div>
+                        <div style="color: #fff; font-weight: 600; font-size: 1.05rem;">Aditya S.</div>
+                        <div style="color: var(--primary-cyan); font-size: 0.85rem; margin-bottom: 2px;">Co-ordinator
+                        </div>
+                        <div style="color: var(--text-muted); font-size: 0.9rem;">+91 90295 16245</div>
+                    </div>
+                </div>
             </div>
 
-            <p class="footer-contact" style="font-size: 0.95rem; color: var(--text-muted);">
+            <div class="map-container fade-in">
+                <iframe
+                    src="https://maps.google.com/maps?q=MIT%20Academy%20of%20Engineering,%20Alandi&t=m&z=15&output=embed&iwloc=near"
+                    title="MIT Academy of Engineering Location" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <p class="footer-contact" style="font-size: 0.95rem; color: var(--text-muted); margin-top: 20px;">
                 <strong>Official Support:</strong> <a href="mailto:aero.club2424@gmail.com"
                     style="color: var(--primary-cyan); text-decoration: none;">aero.club2424@gmail.com</a>
             </p>
@@ -1735,7 +1828,6 @@
         </div>
     </footer>
 
-    <!-- 9. SUCCESS MODAL -->
     <div class="modal-overlay" id="successModal">
         <div class="modal-content">
             <div class="success-icon">✓</div>
@@ -1747,10 +1839,6 @@
     </div>
 
     <script>
-
-
-
-
         // Form Submit to Google Sheets via GAS Web App URL
         const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzwKbDWXdGSPXiLmJjhxiNR_zUOSIX-DTNaJXfIZ8hBX5QVU3eElQOgVgFsISQ4w50V/exec'; // REPLACE WITH ACTUAL URL
 
@@ -1853,11 +1941,10 @@
         });
     </script>
 
-    <!-- 10. MOUSE TRACKER HUD -->
     <div id="mouseTracker"
         style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; font-family: 'Rajdhani', sans-serif; color: var(--primary-cyan); font-size: 0.85rem; pointer-events: none; background: rgba(10, 15, 25, 0.8); padding: 8px 15px; border: 1px solid var(--primary-cyan); border-radius: 5px; box-shadow: 0 0 10px rgba(0, 212, 255, 0.3); backdrop-filter: blur(2px); transition: opacity 0.3s; opacity: 0.8;">
-        LAT: <span id="mouseLat" style="color:#fff;">18.52040</span>&deg; N<br>
-        LNG: <span id="mouseLng" style="color:#fff;">73.85670</span>&deg; E
+        LAT: <span id="mouseLat" style="color:#fff;">18.67610</span>° N<br>
+        LNG: <span id="mouseLng" style="color:#fff;">73.89610</span>° E
     </div>
 
     <script>
@@ -1866,9 +1953,9 @@
             const latSpan = document.getElementById('mouseLat');
             const lngSpan = document.getElementById('mouseLng');
             if (latSpan && lngSpan) {
-                // Base coordinates (Pune region roughly)
-                const baseLat = 18.5204;
-                const baseLng = 73.8567;
+                // Base coordinates (MITAOE Alandi region)
+                const baseLat = 18.6761;
+                const baseLng = 73.8961;
 
                 // Calculate small shifts based on mouse screen position
                 const latOffset = (e.clientY / window.innerHeight) * 0.0500;
@@ -1879,6 +1966,23 @@
 
                 latSpan.textContent = currentLat.toFixed(5);
                 lngSpan.textContent = currentLng.toFixed(5);
+            }
+        });
+
+        // Anti-Inspect / Developer Tools Protection
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('keydown', event => {
+            // Prevent F12
+            if (event.key === 'F12' || event.keyCode === 123) {
+                event.preventDefault();
+            }
+            // Prevent Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C (Inspect/Console)
+            if (event.ctrlKey && event.shiftKey && ['I', 'J', 'C', 'i', 'j', 'c'].includes(event.key)) {
+                event.preventDefault();
+            }
+            // Prevent Ctrl+U (View Source)
+            if (event.ctrlKey && (event.key === 'U' || event.key === 'u')) {
+                event.preventDefault();
             }
         });
     </script>
