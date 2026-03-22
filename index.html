@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AEROCAD Showdown 2026 | National Level CAD Modelling Tournament</title>
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/jpeg" href="aerocad_logo.jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -103,6 +103,25 @@
 
         html {
             scroll-behavior: smooth;
+            scrollbar-color: var(--secondary-orange) var(--bg-dark);
+            scrollbar-width: thin;
+        }
+
+        /* Custom Scrollbar for Chrome/Safari/Edge */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+            border-left: 1px solid rgba(0, 212, 255, 0.1);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary-cyan), var(--secondary-orange));
+            border-radius: 6px;
+            border: 3px solid var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(0deg, var(--primary-cyan), var(--secondary-orange));
         }
 
         body {
@@ -212,38 +231,164 @@
             transform: translateY(0);
         }
 
-        .wakanda-glitch {
+        .wakanda-text {
             font-family: 'Wakanda Forever', 'Rubik Glitch', sans-serif;
-            color: var(--primary-cyan);
+            color: var(--text-muted);
             font-size: 1.2rem;
             letter-spacing: 2px;
-            text-shadow: 2px 0 var(--secondary-orange), -2px 0 #fff;
-            animation: simpleGlitch 0.2s linear infinite, blink 2.5s infinite;
+        }
+
+        .spider-glitch {
+            animation: spiderGlitch 3s infinite;
+            position: relative;
+        }
+
+        .spider-glitch::before {
+            content: "𓀀𓀁𓀂𓀃𓀄𓀅𓀆𓀇𓀈𓀉𓀊 अङ्गे गात्रं नान्यस्य, वक्त्रं ज्ञानं राज्यं लावण्यं भोज्यम् ▚▚▚▚ ΣΦΨΩ αβγδ 𓁏𓁐𓁑𓁒 ॐ";
+            position: absolute;
+            left: -2px;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            background: var(--bg-card);
+            color: var(--primary-cyan);
+            font-family: Arial, sans-serif;
+            font-size: 1rem;
+            word-break: break-all;
+            animation: textMutateCyan 3s infinite;
+            z-index: 10;
+        }
+
+        .spider-glitch::after {
+            content: "⠠⠤⠥⠇⠞⠊⠧⠑⠗⠎⠑ 01000111 अङ्गे गात्रं नान्यस्य, वक्त्रं ज्ञानं राज्यं 𓁕𓁖𓁗𓁘𓁙 ▚▚▚▚ ΣΦΨΩ 01010101";
+            position: absolute;
+            left: 2px;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            color: var(--secondary-orange);
+            font-family: Courier, monospace;
+            font-size: 1.1rem;
+            word-break: break-all;
+            animation: textMutateOrange 3s infinite;
+            z-index: 11;
+        }
+
+        @keyframes textMutateCyan {
+
+            0%,
+            93%,
+            100% {
+                opacity: 0;
+                clip-path: inset(0 0 0 0);
+            }
+
+            94% {
+                opacity: 1;
+                clip-path: inset(10% 0 60% 0);
+                transform: translateX(-5px);
+            }
+
+            95% {
+                opacity: 1;
+                clip-path: inset(50% 0 20% 0);
+                transform: translateX(5px);
+            }
+
+            96% {
+                opacity: 1;
+                clip-path: inset(20% 0 50% 0);
+                transform: translateX(-2px);
+            }
+
+            97% {
+                opacity: 1;
+                clip-path: inset(80% 0 5% 0);
+                transform: translateX(2px);
+            }
+        }
+
+        @keyframes textMutateOrange {
+
+            0%,
+            93%,
+            100% {
+                opacity: 0;
+                clip-path: inset(0 0 0 0);
+            }
+
+            94% {
+                opacity: 0.8;
+                clip-path: inset(60% 0 10% 0);
+                transform: translateX(5px);
+            }
+
+            95% {
+                opacity: 0.8;
+                clip-path: inset(10% 0 70% 0);
+                transform: translateX(-5px);
+            }
+
+            96% {
+                opacity: 0.8;
+                clip-path: inset(50% 0 30% 0);
+                transform: translateX(2px);
+            }
+
+            97% {
+                opacity: 0.8;
+                clip-path: inset(5% 0 80% 0);
+                transform: translateX(-2px);
+            }
+        }
+
+        @keyframes spiderGlitch {
+
+            0%,
+            93%,
+            100% {
+                text-shadow: none;
+                transform: none;
+                filter: none;
+            }
+
+            94% {
+                text-shadow: 3px 0 0 #00ffff, -3px 0 0 #ff00ff;
+                transform: translateX(-1px) skewX(2deg);
+                filter: contrast(1.2);
+            }
+
+            95% {
+                text-shadow: -3px 0 0 #00ffff, 3px 0 0 #ff00ff;
+                transform: translateX(1px) skewX(-2deg);
+                filter: contrast(1.5);
+            }
+
+            96% {
+                text-shadow: none;
+                transform: none;
+                filter: none;
+            }
+
+            97% {
+                text-shadow: 2px -1px 0 #00ffff, -2px 1px 0 #ff00ff;
+                transform: translateX(-1px) skewX(1deg);
+            }
         }
 
         @keyframes simpleGlitch {
             0% {
-                transform: translate(0)
+                filter: hue-rotate(0deg) contrast(1);
             }
 
-            20% {
-                transform: translate(-2px, 2px)
-            }
-
-            40% {
-                transform: translate(-2px, -2px)
-            }
-
-            60% {
-                transform: translate(2px, 2px)
-            }
-
-            80% {
-                transform: translate(2px, -2px)
+            50% {
+                filter: hue-rotate(45deg) contrast(1.5);
             }
 
             100% {
-                transform: translate(0)
+                filter: hue-rotate(0deg) contrast(1);
             }
         }
 
@@ -347,6 +492,52 @@
             cursor: pointer;
         }
 
+        .back-to-events {
+            position: absolute;
+            top: 100px;
+            left: 5%;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: transparent;
+            color: #fff;
+            font-family: var(--font-head);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .back-to-events:hover {
+            border-color: var(--secondary-orange);
+            background: rgba(255, 107, 0, 0.1);
+        }
+
+        .back-to-events svg {
+            width: 18px;
+            height: 18px;
+            color: var(--secondary-orange);
+            transition: transform 0.3s ease;
+        }
+
+        .back-to-events:hover svg {
+            transform: translateX(-5px);
+        }
+        
+        @media (max-width: 768px) {
+            .back-to-events {
+                top: 90px;
+                left: 20px;
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+        }
+
         /* 2. HERO SECTION */
         .hero {
             min-height: 100vh;
@@ -366,15 +557,50 @@
             width: 100%;
             height: 100%;
             background:
-                linear-gradient(rgba(3, 8, 20, 0.7), rgba(3, 8, 20, 0.9)),
+                linear-gradient(rgba(3, 8, 20, 0.8), rgba(3, 8, 20, 0.95)),
                 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.05"><path d="M0 0h100v100H0z" fill="none"/><path d="M0 50h100M50 0v100" stroke="%2300d4ff" stroke-width="1"/></svg>') center/ 50px 50px;
             z-index: -1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -46%);
+            width: 90vw;
+            height: 90vh;
+            max-width: 800px;
+            background: url('aerocad_logo.jpeg') no-repeat center center;
+            background-size: contain;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 0;
+            mix-blend-mode: screen;
+        }
+
+        .section::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90vw;
+            height: 95%;
+            max-width: 900px;
+            background: url('aerocad_logo.jpeg') no-repeat center center;
+            background-size: contain;
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 0;
+            mix-blend-mode: screen;
         }
 
         .hero-content {
             text-align: center;
             max-width: 900px;
-            z-index: 1;
+            position: relative;
+            z-index: 2;
         }
 
         .hero-hosted {
@@ -496,6 +722,9 @@
             overflow: hidden;
             backdrop-filter: blur(10px);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .round-card:hover {
@@ -1125,6 +1354,10 @@
 
     <!-- 2. HERO SECTION -->
     <header class="hero">
+        <a href="https://www.gamesta.in/events" class="back-to-events">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            BACK TO EVENTS
+        </a>
         <div class="container hero-content">
             <div class="hero-hosted">MITAERO Club | MIT Academy of Engineering</div>
             <h1 class="hero-title">AEROCAD<br><span>Showdown</span> 2026</h1>
@@ -1192,20 +1425,24 @@
 
                 <div class="round-card fade-in"
                     style="transition-delay: 0.2s; border-color: var(--primary-cyan); box-shadow: 0 0 15px rgba(0,212,255,0.3);">
-                    <span class="round-num" style="color: var(--primary-cyan);">ROUND 03</span>
-                    <h3 class="round-title"
-                        style="color: #fff; animation: simpleGlitch 0.2s linear infinite, blink 3s infinite;">
+                    <span class="round-num spider-glitch"
+                        style="color: var(--primary-cyan); display: inline-block;">ROUND 03</span>
+                    <h3 class="round-title spider-glitch" style="color: #fff; display: inline-block;">
                         Co-ordination</h3>
-                    <div class="round-meta"
-                        style="background: rgba(0,212,255,0.1); color: var(--primary-cyan); animation: simpleGlitch 0.4s linear infinite;">
+                    <div class="round-meta spider-glitch"
+                        style="background: rgba(0,212,255,0.1); color: var(--primary-cyan); display: inline-block; animation-delay: 0.1s;">
                         Day 1 · Advanced</div>
-                    <p class="round-desc">
-                        <span class="wakanda-glitch" style="color: var(--text-muted); text-shadow: none;">Teams split
+                    <p class="round-desc" style="flex-grow: 1;">
+                        <span class="wakanda-text spider-glitch"
+                            style="color: var(--text-muted); font-size: 0.95rem; letter-spacing: 1px; display: inline-block; animation-delay: 0.2s;">Teams
+                            split
                             into pairs sharing one workstation! One controls the mouse, the other the keyboard. </span>
-                        <strong
-                            style="color: var(--secondary-orange); font-size: 1.1rem; text-shadow: 0 0 10px var(--secondary-orange); animation: blink 1.5s infinite;">FLAWLESS
+                        <strong class="spider-glitch"
+                            style="color: var(--secondary-orange); font-size: 1.1rem; display: inline-block; margin: 5px 0; animation-delay: 0.3s;">FLAWLESS
                             COMMUNICATION</strong>
-                        <span class="wakanda-glitch" style="color: var(--text-muted); text-shadow: none;"> is required
+                        <span class="wakanda-text spider-glitch"
+                            style="color: var(--text-muted); font-size: 0.95rem; letter-spacing: 1px; display: inline-block; animation-delay: 0.4s;">
+                            is required
                             to mate components perfectly.</span>
                     </p>
                 </div>
@@ -1398,9 +1635,92 @@
                 <br>AERO<span>CAD</span>
             </div>
             <p class="footer-subtitle">MITAERO Club | MIT Academy of Engineering, Pune</p>
-            <p class="footer-contact" style="margin-top: 10px; font-size: 0.95rem; color: var(--text-muted);">
-                <strong>Queries:</strong> +91 7888129094 - Chinmay Parite - President<br>
-                <strong>Email:</strong> <a href="mailto:aero.club2424@gmail.com"
+            <style>
+                .contact-grid {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    gap: 20px;
+                    margin: 30px 0 20px 0;
+                }
+
+                .contact-card {
+                    background: rgba(255, 255, 255, 0.03);
+                    border: 1px solid var(--border-color);
+                    padding: 15px 25px;
+                    border-radius: 10px;
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    text-align: left;
+                    transition: transform 0.3s ease, border-color 0.3s ease;
+                    min-width: 250px;
+                }
+
+                .contact-card:hover {
+                    transform: translateY(-5px);
+                    border-color: var(--primary-cyan);
+                    background: rgba(0, 212, 255, 0.05);
+                }
+
+                .contact-card.orange:hover {
+                    border-color: var(--secondary-orange);
+                    background: rgba(255, 87, 34, 0.05);
+                }
+
+                .contact-icon {
+                    width: 45px;
+                    height: 45px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: rgba(0, 212, 255, 0.1);
+                    color: var(--primary-cyan);
+                }
+
+                .contact-card.orange .contact-icon {
+                    background: rgba(255, 87, 34, 0.1);
+                    color: var(--secondary-orange);
+                }
+            </style>
+
+            <div class="contact-grid">
+                <div class="contact-card orange">
+                    <div class="contact-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div>
+                        <div style="color: #fff; font-weight: 600; font-size: 1.05rem;">Chinmay Parite</div>
+                        <div style="color: var(--secondary-orange); font-size: 0.85rem; margin-bottom: 2px;">Event
+                            Coordinator</div>
+                        <div style="color: var(--text-muted); font-size: 0.9rem;">+91 78881 29094</div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div>
+                        <div style="color: #fff; font-weight: 600; font-size: 1.05rem;">Kiran Wagh</div>
+                        <div style="color: var(--primary-cyan); font-size: 0.85rem; margin-bottom: 2px;">Event
+                            Co-ordinator</div>
+                        <div style="color: var(--text-muted); font-size: 0.9rem;">+91 91720 23118</div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="footer-contact" style="font-size: 0.95rem; color: var(--text-muted);">
+                <strong>Official Support:</strong> <a href="mailto:aero.club2424@gmail.com"
                     style="color: var(--primary-cyan); text-decoration: none;">aero.club2424@gmail.com</a>
             </p>
 
@@ -1530,6 +1850,36 @@
                 document.getElementById('loader').classList.add('hidden');
                 document.body.style.overflow = 'auto';
             }, 200); // Tiny 200ms buffer for a smooth fade out
+        });
+    </script>
+
+    <!-- 10. MOUSE TRACKER HUD -->
+    <div id="mouseTracker"
+        style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; font-family: 'Rajdhani', sans-serif; color: var(--primary-cyan); font-size: 0.85rem; pointer-events: none; background: rgba(10, 15, 25, 0.8); padding: 8px 15px; border: 1px solid var(--primary-cyan); border-radius: 5px; box-shadow: 0 0 10px rgba(0, 212, 255, 0.3); backdrop-filter: blur(2px); transition: opacity 0.3s; opacity: 0.8;">
+        LAT: <span id="mouseLat" style="color:#fff;">18.52040</span>&deg; N<br>
+        LNG: <span id="mouseLng" style="color:#fff;">73.85670</span>&deg; E
+    </div>
+
+    <script>
+        // Interactive Mouse Coordinates Tracker
+        document.addEventListener('mousemove', (e) => {
+            const latSpan = document.getElementById('mouseLat');
+            const lngSpan = document.getElementById('mouseLng');
+            if (latSpan && lngSpan) {
+                // Base coordinates (Pune region roughly)
+                const baseLat = 18.5204;
+                const baseLng = 73.8567;
+
+                // Calculate small shifts based on mouse screen position
+                const latOffset = (e.clientY / window.innerHeight) * 0.0500;
+                const currentLat = baseLat - latOffset + 0.0250;
+
+                const lngOffset = (e.clientX / window.innerWidth) * 0.0500;
+                const currentLng = baseLng + lngOffset - 0.0250;
+
+                latSpan.textContent = currentLat.toFixed(5);
+                lngSpan.textContent = currentLng.toFixed(5);
+            }
         });
     </script>
 </body>
