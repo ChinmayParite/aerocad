@@ -10,8 +10,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@400;500;600;700&family=Rubik+Glitch&display=swap"
         rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/wakanda-forever" rel="stylesheet">
     <style>
         :root {
             /* Theme Colors */
@@ -209,6 +210,29 @@
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        .wakanda-glitch {
+            font-family: 'Wakanda Forever', 'Rubik Glitch', sans-serif;
+            color: var(--primary-cyan);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            text-shadow: 2px 0 var(--secondary-orange), -2px 0 #fff;
+            animation: simpleGlitch 0.2s linear infinite, blink 2.5s infinite;
+        }
+
+        @keyframes simpleGlitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+        
+        @keyframes blink {
+            0%, 96%, 98% { opacity: 1; }
+            97%, 99% { opacity: 0; }
         }
 
         /* 1. FIXED NAVBAR */
@@ -1081,7 +1105,7 @@
             <p class="hero-tagline">National Level CAD Modelling & Assembly Tournament</p>
 
             <div class="hero-badges">
-                <span class="badge">📅 2-Day Event</span>
+                <span class="badge">📅 1-Day Event</span>
                 <span class="badge">📍 MIT Pune</span>
                 <span class="badge">👥 4 Members/Team</span>
                 <span class="badge">🎟️ ₹200 Entry Fee</span>
@@ -1140,18 +1164,17 @@
                         Precision meets speed—shortest completion time wins the bracket.</p>
                 </div>
 
-                <div class="round-card fade-in" style="transition-delay: 0.2s;">
-                    <span class="round-num">ROUND 03</span>
-                    <h3 class="round-title">The Mystery Co-Pilot</h3>
-                    <div class="round-meta">Day 2 · Advanced</div>
-                    <p class="round-desc">Teams split into pairs sharing one workstation! One controls the mouse, the
-                        other the keyboard. Flawless communication is required to mate components perfectly.</p>
+                <div class="round-card fade-in" style="transition-delay: 0.2s; border-color: red; box-shadow: 0 0 15px rgba(255,0,0,0.5);">
+                    <span class="round-num" style="color: red;">ROUND 03</span>
+                    <h3 class="round-title wakanda-glitch" style="color: red;">[REDACTED]</h3>
+                    <div class="round-meta" style="background: rgba(255,0,0,0.2); color: #fff;">SYSTEM ERROR</div>
+                    <p class="round-desc wakanda-glitch">ENCRYPTED DATA // ACCESS DENIED... PREPARE FOR THE UNKNOWN. ONLY THE WORTHY SHALL SURVIVE THIS PHASE.</p>
                 </div>
 
                 <div class="round-card fade-in" style="transition-delay: 0.3s;">
                     <span class="round-num">ROUND 04</span>
                     <h3 class="round-title">The Grand Finale</h3>
-                    <div class="round-meta">Day 2 · Championship</div>
+                    <div class="round-meta">Day 1 · Championship</div>
                     <p class="round-desc">Live high-speed aerospace subsystem modelling. The top 3 teams are crowned
                         based on the absolute lowest aggregate time and zero geometric errors.</p>
                 </div>
