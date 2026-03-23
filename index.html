@@ -1484,7 +1484,7 @@
                         Co-ordination</h3>
                     <div class="round-meta spider-glitch"
                         style="background: rgba(0,212,255,0.1); color: var(--primary-cyan); display: inline-block; animation-delay: 0.1s;">
-                        Day 1 · Advanced</div>
+                        Day 1 · Advanced (This will be revealed on the day of the event)</div>
                     <p class="round-desc" style="flex-grow: 1;">
                         <span class="wakanda-text spider-glitch"
                             style="color: var(--text-muted); font-size: 0.95rem; letter-spacing: 1px; display: inline-block; animation-delay: 0.2s;">Teams
@@ -1941,33 +1941,7 @@
         });
     </script>
 
-    <div id="mouseTracker"
-        style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; font-family: 'Rajdhani', sans-serif; color: var(--primary-cyan); font-size: 0.85rem; pointer-events: none; background: rgba(10, 15, 25, 0.8); padding: 8px 15px; border: 1px solid var(--primary-cyan); border-radius: 5px; box-shadow: 0 0 10px rgba(0, 212, 255, 0.3); backdrop-filter: blur(2px); transition: opacity 0.3s; opacity: 0.8;">
-        LAT: <span id="mouseLat" style="color:#fff;">18.67610</span>° N<br>
-        LNG: <span id="mouseLng" style="color:#fff;">73.89610</span>° E
-    </div>
-
     <script>
-        // Interactive Mouse Coordinates Tracker
-        document.addEventListener('mousemove', (e) => {
-            const latSpan = document.getElementById('mouseLat');
-            const lngSpan = document.getElementById('mouseLng');
-            if (latSpan && lngSpan) {
-                // Base coordinates (MITAOE Alandi region)
-                const baseLat = 18.6761;
-                const baseLng = 73.8961;
-
-                // Calculate small shifts based on mouse screen position
-                const latOffset = (e.clientY / window.innerHeight) * 0.0500;
-                const currentLat = baseLat - latOffset + 0.0250;
-
-                const lngOffset = (e.clientX / window.innerWidth) * 0.0500;
-                const currentLng = baseLng + lngOffset - 0.0250;
-
-                latSpan.textContent = currentLat.toFixed(5);
-                lngSpan.textContent = currentLng.toFixed(5);
-            }
-        });
 
         // Anti-Inspect / Developer Tools Protection
         document.addEventListener('contextmenu', event => event.preventDefault());
